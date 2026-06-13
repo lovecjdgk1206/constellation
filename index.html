@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성좌 등록소 · 나의 성좌 설정하기</title>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07080f;
+    --surface: #0d0f1a;
+    --surface2: #121520;
+    --border: #1e2235;
+    --border-light: #282d42;
+    --text: #cdd0e0;
+    --text-muted: #8d95b5;
+    --text-dim: #2e3348;
+    --star: #b8c6ff;
+    --star-dim: rgba(184,198,255,0.12);
+    --star-border: rgba(184,198,255,0.25);
+    --gold: #d4aa6e;
+    --gold-dim: rgba(212,170,110,0.1);
+    --gold-border: rgba(212,170,110,0.25);
+    --purple: #9b8ec4;
+    --purple-dim: rgba(155,142,196,0.1);
+    --teal: #6ec4b8;
+  --title-gold: #e0c17f;
+  --title-violet: #b89cff;
+  --button-text: #f3deb1;
+    --tag-bg: #0f1119;
+    --tag-border: #1c2033;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 별 배경 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 15% 12%, rgba(184,198,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 72% 8%, rgba(184,198,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 38% 22%, rgba(212,170,110,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 88% 35%, rgba(184,198,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 48%, rgba(184,198,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 62% 58%, rgba(184,198,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 25% 72%, rgba(155,142,196,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 80%, rgba(184,198,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 48% 88%, rgba(212,170,110,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 92%, rgba(184,198,255,0.3) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  .header {
+    position: relative;
+    padding: 70px 20px 52px;
+    text-align: center;
+    z-index: 1;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--star-border), var(--gold-border), var(--star-border), transparent);
+  }
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--star);
+    opacity: 0.6;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .header-title {
+    font-family: 'Gowun Batang', serif;
+    font-size: clamp(30px, 6vw, 52px);
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .header-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .header-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-top: 12px;
+    letter-spacing: 0.03em;
+  }
+  .header-hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  /* CONTAINER */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 40px 20px 100px;
+  }
+
+  .page-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-dim);
+    padding: 0 0 28px;
+    letter-spacing: 0.03em;
+  }
+
+  /* SECTION */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 26px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--star-border), transparent);
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Gowun Batang', serif;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+ color: var(--title-gold);
+    font-weight: 400;
+  }
+  .section-title small {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+  .badge-req { color: var(--gold); background: var(--gold-dim); border: 1px solid var(--gold-border); }
+  .badge-opt { color: var(--text-dim); background: transparent; border: 1px solid var(--border); }
+
+  /* COLLAPSIBLE */
+  .c-head {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    cursor: pointer; user-select: none;
+    margin-bottom: 0;
+  }
+  .c-head.open { margin-bottom: 20px; }
+  .c-arrow { font-size: 10px; color: var(--text-dim); transition: transform 0.2s; }
+  .c-head.open .c-arrow { transform: rotate(180deg); }
+  .c-body { display: none; }
+  .c-body.open { display: block; }
+
+  /* FIELD */
+  .fg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .fg.one { grid-template-columns: 1fr; }
+  .fg.three { grid-template-columns: 1fr 1fr 1fr; }
+  @media(max-width:520px){ .fg,.fg.three { grid-template-columns: 1fr; } }
+
+  .fl {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .fl .r { color: var(--gold); margin-left: 2px; }
+  .fh { font-size: 11px; color: var(--text-dim); margin-top: 4px; line-height: 1.5; }
+
+  input[type=text], select, textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--star); }
+  select option { background: var(--surface2); }
+  textarea { min-height: 72px; }
+
+  /* TAGS */
+  .tg { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+  .t {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+  }
+.t:hover {
+  color: #d7defc;
+  border-color: #4c5b9a;
+}
+.t.on {
+  background: rgba(224,193,127,0.12);
+  border-color: rgba(224,193,127,0.35);
+  color: #e0c17f;
+  font-weight: 500;
+}
+  .t.on-gold { background: var(--gold-dim); border-color: var(--gold-border); color: var(--gold); font-weight: 400; }
+  .t.on-purple { background: var(--purple-dim); border-color: rgba(155,142,196,0.35); color: var(--purple); font-weight: 400; }
+
+  .add-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px dashed var(--border-light);
+    background: transparent;
+    color: var(--teal);
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.15s;
+  }
+  .add-btn:hover { border-color: var(--teal); }
+  .cw { display: none; margin-top: 8px; }
+  .cw.open { display: flex; gap: 8px; }
+  .cw input { flex: 1; }
+  .cb {
+    padding: 8px 14px;
+    background: var(--star-dim);
+    border: 1px solid var(--star-border);
+    border-radius: 7px;
+    color: var(--star);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+
+  /* RADIO */
+  .rg { display: flex; flex-wrap: wrap; gap: 7px; }
+  .rt {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .rt.on { background: var(--gold-dim); border-color: var(--gold-border); color: var(--gold); font-weight: 400; }
+  .rt.def { background: var(--surface2); border-color: var(--border-light); color: var(--text); font-weight: 400; }
+
+  /* 성좌 유형 카드 */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  @media(max-width:520px){ .type-grid { grid-template-columns: repeat(2, 1fr); } }
+  .type-card {
+    padding: 12px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    color: var(--text-muted);
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    line-height: 1.45;
+  }
+  .type-card .tc-name { font-weight: 400; color: var(--text-muted); display: block; margin-bottom: 3px; }
+  .type-card .tc-desc { font-size: 10px; color: var(--text-dim); display: block; }
+  .type-card:hover { border-color: var(--border-light); }
+  .type-card.on {
+    background: var(--star-dim);
+    border-color: var(--star-border);
+  }
+  .type-card.on .tc-name { color: var(--star); }
+  .type-card.on .tc-desc { color: rgba(184,198,255,0.5); }
+
+  /* 세계 장르 카드 */
+  .world-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  @media(max-width:520px){ .world-grid { grid-template-columns: repeat(2, 1fr); } }
+  .wc {
+    padding: 10px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    color: var(--text-muted);
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .wc:hover { border-color: var(--border-light); color: var(--text); }
+  .wc.on { background: var(--purple-dim); border-color: rgba(155,142,196,0.35); color: var(--purple); font-weight: 400; }
+
+  /* TOGGLE */
+  .tog-item {
+    display: flex; align-items: flex-start;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+  }
+  .tog-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .tog-item:first-child { padding-top: 0; }
+  .tog-info { flex: 1; }
+  .tog-name { font-size: 13px; color: var(--text); margin-bottom: 3px; }
+  .tog-desc { font-size: 11px; color: var(--text-muted); line-height: 1.55; }
+  .tsw { position: relative; width: 42px; height: 22px; flex-shrink: 0; margin-top: 2px; }
+  .tsw input { opacity: 0; width: 0; height: 0; }
+  .tsl {
+    position: absolute; cursor: pointer; inset: 0;
+    background: var(--surface2); border: 1px solid var(--border-light);
+    border-radius: 11px; transition: all 0.2s;
+  }
+  .tsl::before {
+    content: ''; position: absolute;
+    width: 14px; height: 14px; left: 3px; top: 3px;
+    background: var(--text-muted); border-radius: 50%; transition: all 0.2s;
+  }
+  .tsw input:checked + .tsl { background: var(--star-dim); border-color: var(--star-border); }
+  .tsw input:checked + .tsl::before { transform: translateX(20px); background: var(--star); }
+
+  /* SECTION DIVIDER */
+  .sdiv {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 6px 0 18px;
+  }
+
+  /* GUIDE ROW */
+  .gr { margin-bottom: 22px; }
+  .gl { font-family: 'Gowun Batang', serif; font-size: 14px;  color: var(--title-violet); margin-bottom: 5px; font-weight: 600; }
+  .gd { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.6; }
+
+  /* GENERATE */
+  .gen-wrap { text-align: center; padding: 16px 0 0; }
+.gen-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 44px;
+  background: linear-gradient(135deg, var(--star-dim) 0%, rgba(155,142,196,0.08) 100%);
+  border: 1px solid var(--star-border);
+  border-radius: 30px;
+  color: var(--button-text);
+  font-family: 'Gowun Batang', serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.2s;
+}
+  .gen-btn:hover {
+    background: rgba(184,198,255,0.15);
+    box-shadow: 0 0 28px rgba(184,198,255,0.12);
+  }
+
+  /* OUTPUT */
+  .out-sec { display: none; margin-top: 20px; }
+  .out-sec.open { display: block; }
+  .out-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .out-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+.cp-btn {
+  padding: 5px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--title-gold);
+  background: rgba(224,193,127,0.08);
+  color: var(--title-gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .cp-btn:hover { background: rgba(224,193,127,0.18); }
+  .out-area {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    line-height: 1.85;
+    color: var(--text);
+    white-space: pre-wrap;
+    min-height: 100px;
+    outline: none;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 32px 20px;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-eyebrow">THE CONSTELLATION · 성좌 등록소</div>
+  <h1 class="header-title">나의 <em>성좌</em> 설정하기</h1>
+  <p class="header-sub">
+    별들의 바다에 떠오른 새로운 성좌여,<br>
+    당신은 어떤 존재이고, 어떤 세계를 관측하고 싶은가요?
+  </p>
+  <p class="header-hint">공란 가능 · 필요한 항목만 작성하셔도 됩니다 · 완성 후 복사해서 AI에 붙여넣으세요</p>
+</header>
+
+<div class="container">
+
+  <!-- ── 성좌 기본 ── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-title">성좌 기본 설정 <small>CONSTELLATION</small></span>
+      <span class="badge badge-req">필수</span>
+    </div>
+
+    <div class="fg">
+      <div>
+        <div class="fl">성좌명 <span class="r">*</span></div>
+        <input type="text" id="con-name" placeholder="예: 황혼의 성좌, 침묵의 별">
+      </div>
+      <div>
+        <div class="fl">성좌 등급</div>
+        <select id="con-grade">
+          <option value="">선택 (기본: 하급)</option>
+          <option>하급</option>
+          <option>중급</option>
+          <option>상급</option>
+          <option>최상급</option>
+          <option>초월급</option>
+          <option>신화급</option>
+        </select>
+        <div class="fh">※ 시작은 하급 권장 · AI가 최종 결정</div>
+      </div>
+    </div>
+
+    <div style="margin-top:8px">
+      <div class="fl">성좌의 영역 / 관장하는 것</div>
+      <input type="text" id="con-domain" placeholder="예: 선택의 순간, 불꽃, 잊혀진 것들, 경계">
+      <div class="fh">성좌의 권능과 특성에 영향을 줍니다</div>
+    </div>
+  </div>
+
+  <!-- ── 성좌 유형 ── -->
+  <div class="section">
+    <div class="section-head c-head open" onclick="toggleSec(this)">
+      <span class="section-title">성좌 유형 <small>TYPE</small></span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-opt">선택</span>
+        <span class="c-arrow">▲</span>
+      </div>
+    </div>
+    <div class="c-body open">
+      <div class="gd">후원 방식과 피후원자를 바라보는 성향을 선택하세요. 하나만 선택 가능합니다.</div>
+      <div class="type-grid" id="type-grid">
+        <span class="type-card" onclick="pickType(this)">
+          <span class="tc-name">보호형</span>
+          <span class="tc-desc">피후원자의 안전 우선<br>지키는 것에서 보람을 느낌</span>
+        </span>
+        <span class="type-card" onclick="pickType(this)">
+          <span class="tc-name">독점형</span>
+          <span class="tc-desc">피후원자를 특별하게 여김<br>공동 후원에 예민할 수 있음</span>
+        </span>
+        <span class="type-card" onclick="pickType(this)">
+          <span class="tc-name">관찰형</span>
+          <span class="tc-desc">결과보다 과정을 중시<br>지켜보는 것 자체가 즐거움</span>
+        </span>
+        <span class="type-card" onclick="pickType(this)">
+          <span class="tc-name">경쟁형</span>
+          <span class="tc-desc">성장과 성과를 높이 평가<br>강해지는 이야기를 선호</span>
+        </span>
+        <span class="type-card" onclick="pickType(this)">
+          <span class="tc-name">수집형</span>
+          <span class="tc-desc">희귀한 재능·인물에 관심<br>특별한 무언가를 찾아다님</span>
+        </span>
+        <span class="type-card" onclick="pickType(this)">
+          <span class="tc-name">선동형</span>
+          <span class="tc-desc">변화와 사건을 즐김<br>흐름을 적극적으로 유도</span>
+        </span>
+      </div>
+      <div style="margin-top:12px">
+        <div class="fl">성좌의 성격 / 분위기</div>
+        <div class="tg" id="con-vibe-tags">
+          <span class="t" onclick="toggleT(this)">과묵한</span>
+          <span class="t" onclick="toggleT(this)">수다스러운</span>
+          <span class="t" onclick="toggleT(this)">냉정한</span>
+          <span class="t" onclick="toggleT(this)">다정한</span>
+          <span class="t" onclick="toggleT(this)">장난기 있는</span>
+          <span class="t" onclick="toggleT(this)">진중한</span>
+          <span class="t" onclick="toggleT(this)">신비로운</span>
+          <span class="t" onclick="toggleT(this)">도도한</span>
+          <span class="t" onclick="toggleT(this)">능글맞은</span>
+          <span class="t" onclick="toggleT(this)">집요한</span>
+          <span class="t" onclick="toggleT(this)">관대한</span>
+          <span class="t" onclick="toggleT(this)">변덕스러운</span>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div class="fl">성좌에 대한 추가 설명</div>
+        <textarea id="con-desc" placeholder="성격, 가치관, 관측에 임하는 태도 등 자유롭게 입력하세요" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 관측 세계 설정 ── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-title">관측 세계 설정 <small>WORLD</small></span>
+      <span class="badge badge-opt">선택</span>
+    </div>
+
+    <div class="gr">
+      <div class="gl">장르 선택</div>
+      <div class="gd">관측하고 싶은 세계의 장르를 선택하세요. 복수 선택 가능합니다.</div>
+      <div class="world-grid" id="world-tags">
+        <span class="wc" onclick="toggleT(this)">판타지</span>
+        <span class="wc" onclick="toggleT(this)">현대</span>
+        <span class="wc" onclick="toggleT(this)">SF</span>
+        <span class="wc" onclick="toggleT(this)">아포칼립스</span>
+        <span class="wc" onclick="toggleT(this)">무협</span>
+        <span class="wc" onclick="toggleT(this)">로맨스</span>
+        <span class="wc" onclick="toggleT(this)">BL</span>
+        <span class="wc" onclick="toggleT(this)">오메가버스</span>
+        <span class="wc" onclick="toggleT(this)">학원</span>
+        <span class="wc" onclick="toggleT(this)">연예계</span>
+        <span class="wc" onclick="toggleT(this)">범죄</span>
+        <span class="wc" onclick="toggleT(this)">정치극</span>
+        <span class="wc" onclick="toggleT(this)">피폐</span>
+        <span class="wc" onclick="toggleT(this)">힐링</span>
+        <span class="wc" onclick="toggleT(this)">자유설정</span>
+      </div>
+      <input type="text" id="world-custom" placeholder="그 외 장르나 세계 상황을 직접 입력하세요" style="margin-top:10px">
+    </div>
+
+    <div class="gr">
+      <div class="gl">세계 상황</div>
+      <div class="gd">어떤 상황의 세계를 관측하고 싶은지 선택하세요. 복수 선택 가능합니다.</div>
+      <div class="tg" id="situation-tags">
+        <span class="t" onclick="toggleT(this)">전쟁 직전</span>
+        <span class="t" onclick="toggleT(this)">멸망 직전</span>
+        <span class="t" onclick="toggleT(this)">던전 출현</span>
+        <span class="t" onclick="toggleT(this)">재벌가 후계 경쟁</span>
+        <span class="t" onclick="toggleT(this)">왕위 경쟁</span>
+        <span class="t" onclick="toggleT(this)">연예계 데뷔</span>
+        <span class="t" onclick="toggleT(this)">조직 전쟁</span>
+        <span class="t" onclick="toggleT(this)">학원 입학</span>
+        <span class="t" onclick="toggleT(this)">생존 게임</span>
+        <span class="t" onclick="toggleT(this)">혁명 전야</span>
+        <span class="t" onclick="toggleT(this)">평화로운 일상</span>
+        <span class="t" onclick="toggleT(this)">몰락한 귀족</span>
+        <span class="t" onclick="toggleT(this)">자유설정</span>
+      </div>
+    </div>
+
+    <div class="gr" style="margin-bottom:0">
+      <div class="gl">관심 인물 유형</div>
+      <div class="gd">처음 눈길이 가는 인물 유형을 선택하세요. AI가 해당 유형을 우선 노출합니다.</div>
+      <div class="tg" id="person-tags">
+        <span class="t" onclick="toggleT(this)">기사</span>
+        <span class="t" onclick="toggleT(this)">마법사</span>
+        <span class="t" onclick="toggleT(this)">황태자</span>
+        <span class="t" onclick="toggleT(this)">재벌</span>
+        <span class="t" onclick="toggleT(this)">학생</span>
+        <span class="t" onclick="toggleT(this)">배우</span>
+        <span class="t" onclick="toggleT(this)">아이돌</span>
+        <span class="t" onclick="toggleT(this)">헌터</span>
+        <span class="t" onclick="toggleT(this)">범죄자</span>
+        <span class="t" onclick="toggleT(this)">경찰</span>
+        <span class="t" onclick="toggleT(this)">의사</span>
+        <span class="t" onclick="toggleT(this)">조직 보스</span>
+        <span class="t" onclick="toggleT(this)">연구원</span>
+        <span class="t" onclick="toggleT(this)">귀족</span>
+        <span class="t" onclick="toggleT(this)">평민</span>
+        <span class="t" onclick="toggleT(this)">자유설정</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 원하는 분위기 ── -->
+  <div class="section">
+    <div class="section-head c-head open" onclick="toggleSec(this)">
+      <span class="section-title">원하는 분위기 <small>MOOD</small></span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-opt">선택</span>
+        <span class="c-arrow">▲</span>
+      </div>
+    </div>
+    <div class="c-body open">
+      <div class="gd">이번 관측에서 원하는 이야기 분위기를 선택하세요. 복수 선택 가능합니다.</div>
+      <div class="tg" id="mood-tags">
+        <span class="t" onclick="toggleT(this)">성장</span>
+        <span class="t" onclick="toggleT(this)">모험</span>
+        <span class="t" onclick="toggleT(this)">정치</span>
+        <span class="t" onclick="toggleT(this)">전투</span>
+        <span class="t" onclick="toggleT(this)">로맨스</span>
+        <span class="t" onclick="toggleT(this)">피폐</span>
+        <span class="t" onclick="toggleT(this)">코미디</span>
+        <span class="t" onclick="toggleT(this)">스릴러</span>
+        <span class="t" onclick="toggleT(this)">미스터리</span>
+        <span class="t" onclick="toggleT(this)">힐링</span>
+        <span class="t" onclick="toggleT(this)">잔잔한 일상</span>
+        <span class="t" onclick="toggleT(this)">느린 감정선</span>
+        <span class="t" onclick="toggleT(this)">빠른 전개</span>
+        <span class="t" onclick="toggleT(this)">다크</span>
+        <span class="t" onclick="toggleT(this)">자유설정</span>
+      </div>
+      <div style="margin-top:10px">
+        <div class="fl">추가 요청 / 자유 입력</div>
+        <textarea id="mood-free" placeholder="원하는 분위기나 이야기 방향을 자유롭게 적어주세요" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 후원 성향 ── -->
+  <div class="section">
+    <div class="section-head c-head open" onclick="toggleSec(this)">
+      <span class="section-title">후원 성향 <small>SPONSORSHIP</small></span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge badge-opt">선택</span>
+        <span class="c-arrow">▲</span>
+      </div>
+    </div>
+    <div class="c-body open">
+
+      <div class="gr">
+        <div class="gl">후원 기준</div>
+        <div class="gd">어떤 인물에게 후원을 결정하나요?</div>
+        <div class="tg" id="sponsor-tags">
+          <span class="t" onclick="toggleT(this)">강한 인물</span>
+          <span class="t" onclick="toggleT(this)">잠재력 있는 인물</span>
+          <span class="t" onclick="toggleT(this)">흥미로운 선택을 하는 인물</span>
+          <span class="t" onclick="toggleT(this)">평범하지만 노력하는 인물</span>
+          <span class="t" onclick="toggleT(this)">희귀한 재능을 가진 인물</span>
+          <span class="t" onclick="toggleT(this)">위기에 처한 인물</span>
+          <span class="t" onclick="toggleT(this)">이야기가 흥미로운 인물</span>
+          <span class="t" onclick="toggleT(this)">끌리는 대로</span>
+        </div>
+      </div>
+
+      <div class="gr" style="margin-bottom:0">
+        <div class="gl">공동 후원에 대한 태도</div>
+        <div class="rg" id="cospons-group">
+          <span class="rt def" onclick="pickRadio(this,'cospons')" data-val="none">선택 안 함</span>
+          <span class="rt" onclick="pickRadio(this,'cospons')" data-val="반김">반기는 편 (도움이 된다)</span>
+          <span class="rt" onclick="pickRadio(this,'cospons')" data-val="예민">예민한 편 (불편하다)</span>
+          <span class="rt" onclick="pickRadio(this,'cospons')" data-val="경쟁">경쟁을 즐기는 편</span>
+          <span class="rt" onclick="pickRadio(this,'cospons')" data-val="무관심">무관심</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 편의 기능 ── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-title">편의 기능 <small>OPTIONS</small></span>
+      <span class="badge badge-opt">선택</span>
+    </div>
+    <div>
+      <div class="tog-item">
+        <div class="tog-info">
+          <div class="tog-name">사칭 금지</div>
+          <div class="tog-desc">AI가 성좌(나)의 대사·감정·반응을 대신 쓰지 않도록 제한합니다. 성좌의 행동은 직접 입력합니다.</div>
+        </div>
+        <label class="tsw"><input type="checkbox" id="tog1" checked><span class="tsl"></span></label>
+      </div>
+      <div class="tog-item">
+        <div class="tog-info">
+          <div class="tog-name">묘사 강화</div>
+          <div class="tog-desc">감각 묘사 밀도를 높이고, AI 특유의 문체와 감정 직접 서술을 차단합니다. 행동과 장면으로 표현합니다.</div>
+        </div>
+        <label class="tsw"><input type="checkbox" id="tog2" checked><span class="tsl"></span></label>
+      </div>
+      <div class="tog-item">
+        <div class="tog-info">
+          <div class="tog-name">반복 차단</div>
+          <div class="tog-desc">같은 묘사·문장 구조·전개의 반복을 막고, 매 턴 새롭게 서술하도록 합니다.</div>
+        </div>
+        <label class="tsw"><input type="checkbox" id="tog3" checked><span class="tsl"></span></label>
+      </div>
+      <div class="tog-item">
+        <div class="tog-info">
+          <div class="tog-name">관측 기록 유지</div>
+          <div class="tog-desc">인물 관계·후원 현황·진행 흐름을 매 턴 누적 유지합니다. 초기화 금지, 이전 내용 우선 반영.</div>
+        </div>
+        <label class="tsw"><input type="checkbox" id="tog4" checked><span class="tsl"></span></label>
+      </div>
+      <div class="tog-item">
+        <div class="tog-info">
+          <div class="tog-name">세계 자율성 유지</div>
+          <div class="tog-desc">모든 인물은 성좌(나)를 위해 존재하지 않습니다. 세계는 관측 여부와 관계없이 계속 움직입니다. 인물은 조언을 거부할 수 있습니다.</div>
+        </div>
+        <label class="tsw"><input type="checkbox" id="tog5" checked><span class="tsl"></span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="gen-wrap">
+    <button class="gen-btn" onclick="generate()">
+      <span>성좌 등록하기</span>
+      <span>✦</span>
+    </button>
+  </div>
+
+  <div class="out-sec" id="out-sec">
+    <div class="out-head">
+      <span class="out-title">완성된 성좌 설정</span>
+      <button class="cp-btn" onclick="copyOut()">복사하기</button>
+    </div>
+    <div class="out-area" id="out-area" contenteditable="true"></div>
+  </div>
+
+</div>
+<footer>THE CONSTELLATION · 성좌 등록소</footer>
+
+<script>
+// COLLAPSIBLE
+function toggleSec(head) {
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+
+// MULTI TOGGLE
+function toggleT(el) { el.classList.toggle('on'); }
+
+// TYPE SINGLE
+function pickType(el) {
+  document.querySelectorAll('#type-grid .type-card').forEach(t => { if(t!==el) t.classList.remove('on'); });
+  el.classList.toggle('on');
+}
+
+// RADIO SINGLE
+const radioState = {};
+function pickRadio(el, group) {
+  el.closest('.rg').querySelectorAll('.rt').forEach(t => t.classList.remove('on','def'));
+  el.classList.add(el.dataset.val === 'none' ? 'def' : 'on');
+  radioState[group] = el.dataset.val;
+}
+
+// HELPERS
+function getActive(id) {
+  const el = document.getElementById(id); if(!el) return [];
+  return Array.from(el.querySelectorAll('.on,.t.on,.wc.on')).map(t => {
+    const clone = t.cloneNode(true);
+    clone.querySelectorAll('small,.tc-desc').forEach(s=>s.remove());
+    return clone.textContent.trim();
+  });
+}
+function getType() {
+  const el = document.querySelector('#type-grid .type-card.on');
+  if(!el) return '';
+  return el.querySelector('.tc-name').textContent.trim();
+}
+function v(id) { const e=document.getElementById(id); return e ? e.value.trim() : ''; }
+
+// GENERATE
+function generate() {
+  const lines = [];
+
+  lines.push('## 성좌 설정');
+  lines.push('');
+
+  const name = v('con-name') || '(미입력)';
+  const grade = v('con-grade') || '하급';
+  lines.push('성좌명: ' + name);
+  lines.push('등급: ' + grade);
+  if(v('con-domain')) lines.push('관장 영역: ' + v('con-domain'));
+
+  const type = getType();
+  if(type) lines.push('성좌 유형: ' + type);
+
+  const vibes = getActive('con-vibe-tags');
+  if(vibes.length) lines.push('성격: ' + vibes.join(' / '));
+  if(v('con-desc')) lines.push(v('con-desc'));
+
+  // 관측 세계
+  const worlds = getActive('world-tags');
+  const worldCustom = v('world-custom');
+  const situations = getActive('situation-tags');
+  const persons = getActive('person-tags');
+  const hasWorld = worlds.length||worldCustom||situations.length||persons.length;
+  if(hasWorld) {
+    lines.push(''); lines.push('## 관측 세계');  lines.push('');
+    if(worlds.length) {
+      const wAll = [...worlds]; if(worldCustom) wAll.push(worldCustom);
+      lines.push('장르: ' + wAll.join(' / '));
+    } else if(worldCustom) lines.push('장르: ' + worldCustom);
+    if(situations.length) lines.push('세계 상황: ' + situations.join(' / '));
+    if(persons.length) lines.push('관심 인물: ' + persons.join(' / '));
+  }
+
+  // 분위기
+  const moods = getActive('mood-tags');
+  const mf = v('mood-free');
+  if(moods.length||mf) {
+    lines.push(''); lines.push('## 원하는 분위기'); lines.push('');
+    if(moods.length) lines.push(moods.join(' / '));
+    if(mf) lines.push(mf);
+  }
+
+  // 후원
+  const sponsors = getActive('sponsor-tags');
+  const cospons = radioState['cospons'] || '';
+  if(sponsors.length || (cospons && cospons !== 'none')) {
+    lines.push(''); lines.push('## 후원 성향'); lines.push('');
+    if(sponsors.length) lines.push('후원 기준: ' + sponsors.join(' / '));
+    if(cospons && cospons !== 'none') lines.push('공동 후원: ' + cospons);
+  }
+
+  // 편의 기능
+  const t1=document.getElementById('tog1').checked;
+  const t2=document.getElementById('tog2').checked;
+  const t3=document.getElementById('tog3').checked;
+  const t4=document.getElementById('tog4').checked;
+  const t5=document.getElementById('tog5').checked;
+
+  if(t1||t2||t3||t4||t5) {
+    lines.push(''); lines.push('## 편의 설정'); lines.push('');
+    const tl=[];
+    if(t1) tl.push('[No-Impersonation]\nNever write the constellation\'s (USER\'s) dialogue, inner thoughts, or reactions. Leave all constellation agency to the user. Output only world events, NPC actions, and environment.');
+    if(t2) tl.push('[Enhanced Description]\nRaise sensory density. Ban AI-tell contrastive phrasing: "A가 아니라 B였다" variants forbidden. Never name emotions directly in narration — surface through behavior, expression, distance, silence.');
+    if(t3) tl.push('[Anti-Repetition]\nEvery turn freshly written. No reuse of prior descriptions, sentence structures, or scene developments.');
+    if(t4) tl.push('[Record Persistence]\n인물 관계·후원 현황·진행 흐름 항상 누적 유지. 초기화 금지. 이전 관측 기록 우선 반영.');
+    if(t5) tl.push('[World Autonomy]\n모든 인물은 성좌를 위해 존재하지 않는다. 세계는 관측 여부와 관계없이 계속 움직인다. 인물은 조언을 거부할 수 있다. 관측 대상도 실패·부상·몰락·사망할 수 있다.');
+    lines.push(tl.join('\n\n'));
+  }
+
+  document.getElementById('out-area').textContent = lines.join('\n');
+  const sec = document.getElementById('out-sec');
+  sec.classList.add('open');
+  sec.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// COPY
+function copyOut() {
+  navigator.clipboard.writeText(document.getElementById('out-area').textContent).then(() => {
+    const btn = document.querySelector('.cp-btn');
+    const o = btn.textContent;
+    btn.textContent = '복사됨 ✓';
+    setTimeout(()=>btn.textContent=o, 1500);
+  });
+}
+</script>
+</body>
+</html>
