@@ -14,7 +14,7 @@
     --border-light: #282d42;
     --text: #cdd0e0;
     --text-muted: #8d95b5;
-    --text-dim: #2e3348;
+    --text-dim: #7f89ae;
     --star: #b8c6ff;
     --star-dim: rgba(184,198,255,0.12);
     --star-border: rgba(184,198,255,0.25);
@@ -79,7 +79,7 @@
   }
   .header-eyebrow {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.35em;
     color: var(--star);
     opacity: 0.6;
@@ -100,14 +100,14 @@
     color: var(--gold);
   }
   .header-sub {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-muted);
     line-height: 1.7;
     margin-top: 12px;
     letter-spacing: 0.03em;
   }
   .header-hint {
-    font-size: 11px;
+    font-size: 15px;
     color: var(--text-dim);
     margin-top: 8px;
     letter-spacing: 0.03em;
@@ -155,14 +155,14 @@
   }
   .section-title {
     font-family: 'Gowun Batang', serif;
-    font-size: 15px;
+    font-size: 17px;
     letter-spacing: 0.05em;
  color: var(--title-gold);
     font-weight: 400;
   }
   .section-title small {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -171,14 +171,24 @@
   }
   .badge {
     font-family: 'DM Mono', monospace;
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border-radius: 20px;
-    padding: 3px 10px;
+    padding: 5px 12px;
   }
-  .badge-req { color: var(--gold); background: var(--gold-dim); border: 1px solid var(--gold-border); }
-  .badge-opt { color: var(--text-dim); background: transparent; border: 1px solid var(--border); }
+.badge-req {
+  color: #ffd58a;
+  background: rgba(255,213,138,0.16);
+  border: 1px solid rgba(255,213,138,0.45);
+  font-weight: 700;
+}
+.badge-opt {
+  color: #b5bddf;
+  background: rgba(181,189,223,0.08);
+  border: 1px solid rgba(181,189,223,0.25);
+  font-weight: 500;
+}
 
   /* COLLAPSIBLE */
   .c-head {
@@ -188,27 +198,27 @@
     margin-bottom: 0;
   }
   .c-head.open { margin-bottom: 20px; }
-  .c-arrow { font-size: 10px; color: var(--text-dim); transition: transform 0.2s; }
+  .c-arrow { font-size: 12px; color: var(--text-dim); transition: transform 0.2s; }
   .c-head.open .c-arrow { transform: rotate(180deg); }
   .c-body { display: none; }
   .c-body.open { display: block; }
 
   /* FIELD */
-  .fg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .fg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
   .fg.one { grid-template-columns: 1fr; }
   .fg.three { grid-template-columns: 1fr 1fr 1fr; }
   @media(max-width:520px){ .fg,.fg.three { grid-template-columns: 1fr; } }
 
   .fl {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.1em;
     color: var(--text-muted);
     text-transform: uppercase;
     margin-bottom: 5px;
   }
   .fl .r { color: var(--gold); margin-left: 2px; }
-  .fh { font-size: 11px; color: var(--text-dim); margin-top: 4px; line-height: 1.5; }
+  .fh { font-size: 15px; color: var(--text-dim); margin-top: 4px; line-height: 1.5; }
 
   input[type=text], select, textarea {
     width: 100%;
@@ -217,9 +227,9 @@
     border-radius: 7px;
     color: var(--text);
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 300;
-    padding: 9px 12px;
+    padding: 12px 12px;
     outline: none;
     transition: border-color 0.2s;
     resize: vertical;
@@ -229,14 +239,14 @@
   textarea { min-height: 72px; }
 
   /* TAGS */
-  .tg { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+  .tg { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
   .t {
     padding: 6px 14px;
     border-radius: 20px;
     border: 1px solid var(--tag-border);
     background: var(--tag-bg);
     color: var(--text-muted);
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
@@ -292,7 +302,7 @@
     border: 1px solid var(--tag-border);
     background: var(--tag-bg);
     color: var(--text-muted);
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
@@ -306,31 +316,36 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   @media(max-width:520px){ .type-grid { grid-template-columns: repeat(2, 1fr); } }
   .type-card {
-    padding: 12px 10px;
+    padding: 12px 12px;
     border-radius: 8px;
     border: 1px solid var(--tag-border);
     background: var(--tag-bg);
     color: var(--text-muted);
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
     line-height: 1.45;
   }
-  .type-card .tc-name { font-weight: 400; color: var(--text-muted); display: block; margin-bottom: 3px; }
-  .type-card .tc-desc { font-size: 10px; color: var(--text-dim); display: block; }
+  .type-card .tc-name { font-weight: 400; color: var(--text-muted); display: block; margin-bottom: 5px; }
+.type-card .tc-desc {
+  font-size: 15px;
+  color: #9aa3c7;
+  display: block;
+  line-height: 1.55;
+}
   .type-card:hover { border-color: var(--border-light); }
   .type-card.on {
     background: var(--star-dim);
     border-color: var(--star-border);
   }
   .type-card.on .tc-name { color: var(--star); }
-  .type-card.on .tc-desc { color: rgba(184,198,255,0.5); }
+  .type-card.on .tc-desc { color: rgba(184,198,255,0.85); }
 
   /* 세계 장르 카드 */
   .world-grid {
@@ -340,12 +355,12 @@
   }
   @media(max-width:520px){ .world-grid { grid-template-columns: repeat(2, 1fr); } }
   .wc {
-    padding: 10px 8px;
+    padding: 12px 8px;
     border-radius: 8px;
     border: 1px solid var(--tag-border);
     background: var(--tag-bg);
     color: var(--text-muted);
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     cursor: pointer;
     transition: all 0.15s;
@@ -365,18 +380,18 @@
   .tog-item:last-child { border-bottom: none; padding-bottom: 0; }
   .tog-item:first-child { padding-top: 0; }
   .tog-info { flex: 1; }
-  .tog-name { font-size: 13px; color: var(--text); margin-bottom: 3px; }
-  .tog-desc { font-size: 11px; color: var(--text-muted); line-height: 1.55; }
+  .tog-name { font-size: 15px; color: var(--text); margin-bottom: 5px; }
+  .tog-desc { font-size: 15px; color: var(--text-muted); line-height: 1.55; }
   .tsw { position: relative; width: 42px; height: 22px; flex-shrink: 0; margin-top: 2px; }
   .tsw input { opacity: 0; width: 0; height: 0; }
   .tsl {
     position: absolute; cursor: pointer; inset: 0;
     background: var(--surface2); border: 1px solid var(--border-light);
-    border-radius: 11px; transition: all 0.2s;
+    border-radius: 15px; transition: all 0.2s;
   }
   .tsl::before {
     content: ''; position: absolute;
-    width: 14px; height: 14px; left: 3px; top: 3px;
+    width: 14px; height: 14px; left: 5px; top: 5px;
     background: var(--text-muted); border-radius: 50%; transition: all 0.2s;
   }
   .tsw input:checked + .tsl { background: var(--star-dim); border-color: var(--star-border); }
@@ -391,16 +406,16 @@
 
   /* GUIDE ROW */
   .gr { margin-bottom: 22px; }
-  .gl { font-family: 'Gowun Batang', serif; font-size: 14px;  color: var(--title-violet); margin-bottom: 5px; font-weight: 600; }
-  .gd { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.6; }
+  .gl { font-family: 'Gowun Batang', serif; font-size: 16px;  color: var(--title-violet); margin-bottom: 5px; font-weight: 600; }
+  .gd { font-size: 15px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.6; }
 
   /* GENERATE */
   .gen-wrap { text-align: center; padding: 16px 0 0; }
 .gen-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 13px 44px;
+  gap: 12px;
+  padding: 15px 44px;
   background: linear-gradient(135deg, var(--star-dim) 0%, rgba(155,142,196,0.08) 100%);
   border: 1px solid var(--star-border);
   border-radius: 30px;
@@ -420,10 +435,10 @@
   /* OUTPUT */
   .out-sec { display: none; margin-top: 20px; }
   .out-sec.open { display: block; }
-  .out-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .out-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
   .out-title {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--teal);
@@ -435,7 +450,7 @@
   background: rgba(224,193,127,0.08);
   color: var(--title-gold);
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.15s;
@@ -447,7 +462,7 @@
     border-radius: 8px;
     padding: 18px;
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 15px;
     line-height: 1.85;
     color: var(--text);
     white-space: pre-wrap;
@@ -462,7 +477,7 @@
     padding: 32px 20px;
     border-top: 1px solid var(--border);
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     color: var(--text-dim);
     letter-spacing: 0.15em;
   }
@@ -493,30 +508,16 @@
       <span class="badge badge-req">필수</span>
     </div>
 
-    <div class="fg">
+    <div class="fg one">
       <div>
         <div class="fl">성좌명 <span class="r">*</span></div>
         <input type="text" id="con-name" placeholder="예: 황혼의 성좌, 침묵의 별">
       </div>
-      <div>
-        <div class="fl">성좌 등급</div>
-        <select id="con-grade">
-          <option value="">선택 (기본: 하급)</option>
-          <option>하급</option>
-          <option>중급</option>
-          <option>상급</option>
-          <option>최상급</option>
-          <option>초월급</option>
-          <option>신화급</option>
-        </select>
-        <div class="fh">※ 시작은 하급 권장 · AI가 최종 결정</div>
-      </div>
-    </div>
 
     <div style="margin-top:8px">
       <div class="fl">성좌의 영역 / 관장하는 것</div>
-      <input type="text" id="con-domain" placeholder="예: 선택의 순간, 불꽃, 잊혀진 것들, 경계">
-      <div class="fh">성좌의 권능과 특성에 영향을 줍니다</div>
+      <input type="text" id="con-domain" placeholder="예: 전쟁, 시간, 기억, 별, 바다, 죽음, 치유, 계약">
+      <div class="fh">성좌가 다루는 힘이나 주제를 입력하세요.</div>
     </div>
   </div>
 
@@ -574,7 +575,7 @@
           <span class="t" onclick="toggleT(this)">변덕스러운</span>
         </div>
       </div>
-      <div style="margin-top:10px">
+      <div style="margin-top:12px">
         <div class="fl">성좌에 대한 추가 설명</div>
         <textarea id="con-desc" placeholder="성격, 가치관, 관측에 임하는 태도 등 자유롭게 입력하세요" rows="2"></textarea>
       </div>
@@ -608,7 +609,7 @@
         <span class="wc" onclick="toggleT(this)">힐링</span>
         <span class="wc" onclick="toggleT(this)">자유설정</span>
       </div>
-      <input type="text" id="world-custom" placeholder="그 외 장르나 세계 상황을 직접 입력하세요" style="margin-top:10px">
+      <input type="text" id="world-custom" placeholder="그 외 장르나 세계 상황을 직접 입력하세요" style="margin-top:12px">
     </div>
 
     <div class="gr">
@@ -683,7 +684,7 @@
         <span class="t" onclick="toggleT(this)">다크</span>
         <span class="t" onclick="toggleT(this)">자유설정</span>
       </div>
-      <div style="margin-top:10px">
+      <div style="margin-top:12px">
         <div class="fl">추가 요청 / 자유 입력</div>
         <textarea id="mood-free" placeholder="원하는 분위기나 이야기 방향을 자유롭게 적어주세요" rows="2"></textarea>
       </div>
